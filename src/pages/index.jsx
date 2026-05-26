@@ -82,7 +82,7 @@ const translations = {
       feature3: "Manage ingredients and nutrition database",
       feature4: "Manage exercises and training library",
       visit: "Open Admin Panel",
-      url: "admin.gymfuel.com"
+      url: "gymfuel-admin.vercel.app"
     },
     footer: { rights: "All rights reserved.", tagline: "Built for those who never stop." },
   },
@@ -165,7 +165,7 @@ const translations = {
       feature3: "Gestion des ingrédients et base nutritionnelle",
       feature4: "Gestion des exercices et bibliothèque d'entraînement",
       visit: "Ouvrir le Dashboard",
-      url: "admin.gymfuel.com"
+      url: "gymfuel-admin.vercel.app"
     },
     footer: { rights: "Tous droits réservés.", tagline: "Conçu pour ceux qui ne s'arrêtent jamais." },
   },
@@ -794,11 +794,11 @@ export default function Home() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C7.08 3.13 6 4.98 6 7h12c0-2.02-1.08-3.87-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z" /></svg>
               {t.hero.cta1}
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="cta-secondary gap-2">
+            <a href="https://github.com/oPahae/GymApp" target="_blank" rel="noopener noreferrer" className="cta-secondary gap-2">
               <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.84 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" /></svg>
               {t.hero.cta3}
             </a>
-            <a href="#" className="cta-secondary gap-2">
+            <a href="https://gymfuel-admin.vercel.app" className="cta-secondary gap-2">
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               {t.hero.cta4}
             </a>
@@ -1107,12 +1107,12 @@ export default function Home() {
                   Dashboard URL
                 </div>
                 <a
-                  href="https://admin.gymfuel.com"
+                  href="https://gymfuel-admin.vercel.app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-accent text-xl font-bold break-all hover:opacity-80 transition"
                 >
-                  https://admin.gymfuel.com
+                  gymfuel-admin.vercel.app
                 </a>
               </div>
               <ul className="space-y-5">
@@ -1122,7 +1122,7 @@ export default function Home() {
                 <FeatureItem text={t.admin.feature4} />
               </ul>
               <a
-                href="https://admin.gymfuel.com"
+                href="https://gymfuel-admin.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cta-primary mt-10 inline-flex"
