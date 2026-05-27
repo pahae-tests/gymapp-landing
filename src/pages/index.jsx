@@ -85,6 +85,12 @@ const translations = {
       url: "gymfuel-admin.vercel.app"
     },
     footer: { rights: "All rights reserved.", tagline: "Built for those who never stop." },
+    iosPopup: {
+      title: "Coming Soon",
+      subtitle: "The iOS version will be available in a few days. Stay tuned — we’re polishing the final release.",
+      badge: "iOS Version",
+      close: "Close"
+    }
   },
   fr: {
     nav: { features: "Fonctionnalités", coaching: "Coaching", ai: "IA", stats: "Statistiques", team: "Équipe" },
@@ -168,6 +174,12 @@ const translations = {
       url: "gymfuel-admin.vercel.app"
     },
     footer: { rights: "Tous droits réservés.", tagline: "Conçu pour ceux qui ne s'arrêtent jamais." },
+    iosPopup: {
+      title: "Bientôt disponible",
+      subtitle: "La version iOS sera disponible dans quelques jours. Encore un peu de patience — nous finalisons la version.",
+      badge: "Version iOS",
+      close: "Fermer"
+    }
   },
 };
 
@@ -252,51 +264,97 @@ function PhoneFrame({ src, alt, className = "" }) {
 }
 
 function TeamCard({ member }) {
-  const initials = member.name.split(" ").map((w) => w[0]).join("").slice(0, 2);
+  const initials =
+    member.name
+      ?.split(" ")
+      .map((w) => w?.[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || "?";
+
   return (
     <div
-      className="group relative rounded-2xl p-6 transition-all duration-500 cursor-pointer"
+      className="group relative rounded-2xl p-6 cursor-pointer overflow-hidden transition-all duration-500"
       style={{
         background: "rgba(255,255,255,0.03)",
         border: "1px solid rgba(255,255,255,0.06)",
         backdropFilter: "blur(20px)",
       }}
     >
-      <img
-        className="absolute aspect-square inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      {/* Hover background glow */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
         style={{
-          background: "linear-gradient(135deg, rgba(163,255,18,0.06) 0%, transparent 60%)",
-          border: "1px solid rgba(163,255,18,0.2)",
+          background:
+            "radial-gradient(circle at top left, rgba(163,255,18,0.12), transparent 60%)",
         }}
-        src={member.image}
       />
-      <div className="relative z-10 aspect-square flex justify-center items-center flex-col">
-        <img
-          className="w-28 h-28 rounded-2xl group flex items-center justify-center text-lg font-black mb-4 mx-auto transition-transform duration-300 group-hover:scale-110"
+
+      {/* Avatar */}
+      <div className="relative z-10 flex flex-col items-center">
+        <div
+          className="w-28 h-28 rounded-2xl flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105"
           style={{
-            background: "linear-gradient(135deg, rgba(163,255,18,0.2), rgba(163,255,18,0.05))",
+            background:
+              "linear-gradient(135deg, rgba(163,255,18,0.2), rgba(163,255,18,0.05))",
             border: "1px solid rgba(163,255,18,0.3)",
-            color: "#A3FF12",
-            fontFamily: "'Space Grotesk', sans-serif",
           }}
-          src={member.image}
         >
-        </img>
-        <h3 className="text-white group-hover:text-black font-bold text-sm text-center mb-1" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-          {member.name}
+          {member.image ? (
+            <img
+              src={member.image}
+              alt={member.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span
+              className="text-[#A3FF12] font-bold text-lg"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              {initials}
+            </span>
+          )}
+        </div>
+
+        {/* Name */}
+        <h3
+          className="mt-4 text-white group-hover:text-[#A3FF12] font-bold text-sm text-center transition-colors"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          {member.name.split(" ")[0]}
         </h3>
-        <p className="text-gray-500 text-xs text-center mb-4">{member.role}</p>
-        <div className="flex justify-center gap-3">
+        <h3
+          className="text-white group-hover:text-[#A3FF12] font-bold text-sm text-center transition-colors"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          {member.name.split(" ")[1]}
+        </h3>
+
+        {/* Role */}
+        <p className="text-gray-500 text-xs text-center mt-1">
+          {member.role}
+        </p>
+
+        {/* Links */}
+        <div className="flex justify-center gap-3 mt-4">
           {[
             {
-              href: member.github, icon: (
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.84 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" /></svg>
-              ), label: "GitHub"
+              href: member.github,
+              label: "GitHub",
+              icon: (
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.84 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+              ),
             },
             {
-              href: member.linkedin, icon: (
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z" /></svg>
-              ), label: "LinkedIn"
+              href: member.linkedin,
+              label: "LinkedIn",
+              icon: (
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z" />
+                </svg>
+              ),
             },
           ].map((link) => (
             <a
@@ -304,9 +362,12 @@ function TeamCard({ member }) {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-lg flex items-center justify-center group-hover:text-black text-gray-500 hover:text-white transition-all duration-200"
-              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
               aria-label={link.label}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:text-[#A3FF12] transition-all duration-200"
+              style={{
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.08)",
+              }}
             >
               {link.icon}
             </a>
@@ -321,7 +382,7 @@ export default function Home() {
   const [lang, setLang] = useState("en");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
+  const [iosPopupOpen, setIosPopupOpen] = useState(false);
   const t = translations[lang];
 
   const [heroRef, heroVisible] = useScrollReveal();
@@ -786,31 +847,38 @@ export default function Home() {
           <div
             className={`hero-ctas flex flex-wrap gap-3 justify-center mb-16 ${heroVisible ? "reveal-up delay-300" : "hidden-init"}`}
           >
-            <a
-              href="/ios.apk"
-              download
-              className="cta-primary gap-2"
+            <button
+              onClick={() => setIosPopupOpen(true)}
+              className="cta-primary gap-2 w-full md:w-fit flex justify-center items-center text-xs"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.39.07 2.35.74 3.15.8 1.22-.26 2.33-.95 3.61-.84 1.54.13 2.7.73 3.46 1.88-3.2 1.97-2.66 6.37.78 7.54-.46 1.17-1 2.31-3 3.5z" />
               </svg>
               {t.hero.cta2}
-            </a>
-            
+            </button>
+
             <a
               href="/android.apk"
               download
               className="cta-primary gap-2"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10z" />
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                style={{ display: "block" }}
+              >
+                <path d="M6.6 18.5c0 .8.7 1.5 1.5 1.5h.9v3c0 .6.5 1.1 1.1 1.1s1.1-.5 1.1-1.1v-3h1.8v3c0 .6.5 1.1 1.1 1.1s1.1-.5 1.1-1.1v-3h.9c.8 0 1.5-.7 1.5-1.5V8H6.6v10.5zM4.2 8.8c-.6 0-1 .4-1 .9v7.1c0 .5.4.9 1 .9s1-.4 1-.9V9.7c0-.5-.4-.9-1-.9zm15.6 0c-.6 0-1 .4-1 .9v7.1c0 .5.4.9 1 .9s1-.4 1-.9V9.7c0-.5-.4-.9-1-.9zM15.2 3.5l1-1.8c.1-.2 0-.5-.2-.6-.2-.1-.5 0-.6.2l-1.1 1.9c-.7-.3-1.5-.4-2.3-.4s-1.6.1-2.3.4L8.6 1.3c-.1-.2-.4-.3-.6-.2-.2.1-.3.4-.2.6l1 1.8C6.8 4.4 5.6 6.1 5.6 8h12.8c0-1.9-1.2-3.6-3.2-4.5z" />
               </svg>
               {t.hero.cta1}
             </a>
+
             <a href="https://github.com/oPahae/GymApp" target="_blank" rel="noopener noreferrer" className="cta-secondary gap-2">
               <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.84 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" /></svg>
               {t.hero.cta3}
             </a>
+
             <a href="https://gymfuel-admin.vercel.app" className="cta-secondary gap-2">
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               {t.hero.cta4}
@@ -905,7 +973,7 @@ export default function Home() {
             </div>
             <div className={`flex justify-center ${trackVisible ? "reveal-right delay-200" : "hidden-init"}`}>
               <div className="animate-float-slow">
-                <img src="/home.png" alt="Home Screen" className="section-image max-w- md:max-w-lg" />
+                <img src="/home.png" alt="Home Screen" className="section-image max-w- md:max-w-lg scale-150 md:scale-100" />
               </div>
             </div>
           </div>
@@ -1227,6 +1295,61 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {iosPopupOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center"
+          style={{
+            background: "rgba(0,0,0,0.75)",
+            backdropFilter: "blur(12px)",
+          }}
+        >
+          <div
+            className="relative w-[90%] max-w-md rounded-3xl p-6"
+            style={{
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(163,255,18,0.25)",
+              boxShadow: "0 0 60px rgba(163,255,18,0.15)",
+            }}
+          >
+            {/* close button */}
+            <button
+              onClick={() => setIosPopupOpen(false)}
+              className="absolute top-3 right-3 w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#fff",
+              }}
+            >
+              ✕
+            </button>
+
+            <div className="text-center">
+              <div className="text-accent font-bold text-sm mb-3 tracking-widest uppercase">
+                {t.iosPopup.badge}
+              </div>
+
+              <h3 className="font-display text-2xl font-black text-white mb-3">
+                {t.iosPopup.title}
+              </h3>
+
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {t.iosPopup.subtitle}
+              </p>
+
+              <div className="mt-6 flex justify-center">
+                <button
+                  onClick={() => setIosPopupOpen(false)}
+                  className="cta-secondary"
+                >
+                  {t.iosPopup.close}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
